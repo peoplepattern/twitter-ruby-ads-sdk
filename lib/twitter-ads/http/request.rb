@@ -71,6 +71,8 @@ module TwitterAds
       token    = OAuth::AccessToken.new(consumer, @client.access_token, @client.access_token_secret)
       request.oauth!(consumer.http, consumer, token)
 
+      @client.options[:request_options].each{|key, value| consumer.http.send("#{key}=", value)} if @client.options[:request_options]
+
       write_log(request) if @client.options[:trace]
       response = consumer.http.request(request)
       write_log(response) if @client.options[:trace]
