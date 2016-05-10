@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Copyright (C) 2015 Twitter, Inc.
 
 module TwitterAds
@@ -5,9 +6,9 @@ module TwitterAds
   # Specialized request class for TON API uploads.
   class TONUpload
 
-    DEFAULT_DOMAIN   = 'https://ton.twitter.com' # @api private
-    DEFAULT_RESOURCE = '/1.1/ton/bucket/' # @api private
-    DEFAULT_BUCKET   = 'ta_partner' # @api private
+    DEFAULT_DOMAIN   = 'https://ton.twitter.com'.freeze # @api private
+    DEFAULT_RESOURCE = '/1.1/ton/bucket/'.freeze # @api private
+    DEFAULT_BUCKET   = 'ta_partner'.freeze # @api private
     DEFAULT_EXPIRE   = (Time.now + 10 * 24 * 60 * 60).httpdate # @api private
     MIN_FILE_SIZE    = 1024 * 1024 * 1 # @api private
 
@@ -80,10 +81,7 @@ module TwitterAds
     #
     # @return [String] The object instance detail.
     def inspect
-      str = "#<#{self.class.name}:0x#{object_id}"
-      str << " bucket=\"#{@bucket}\"" if @bucket
-      str << " file=\"#{@file_path}\"" if @file
-      str << '>'
+      "#<#{self.class.name}:0x#{object_id} bucket=\"#{@bucket}\" file=\"#{@file_path}\">"
     end
 
     private
@@ -126,7 +124,7 @@ module TwitterAds
 
     def content_type
       @content_type ||= begin
-        extension = File.extname(@file_path)
+        extension = File.extname(@file_path).downcase
         if extension == '.csv'
           'text/csv'
         elsif extension == '.tsv'

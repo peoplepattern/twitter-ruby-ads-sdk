@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Copyright (C) 2015 Twitter, Inc.
 
 module TwitterAds
@@ -12,10 +13,10 @@ module TwitterAds
       post:   Net::HTTP::Post,
       put:    Net::HTTP::Put,
       delete: Net::HTTP::Delete
-    }
+    }.freeze
 
-    DEFAULT_DOMAIN = 'https://ads-api.twitter.com'
-    SANDBOX_DOMAIN = 'https://ads-api-sandbox.twitter.com'
+    DEFAULT_DOMAIN = 'https://ads-api.twitter.com'.freeze
+    SANDBOX_DOMAIN = 'https://ads-api-sandbox.twitter.com'.freeze
 
     private_constant :DEFAULT_DOMAIN, :SANDBOX_DOMAIN, :HTTP_METHOD
 
@@ -79,7 +80,7 @@ module TwitterAds
 
     def http_request
       request_url = @resource
-      if @options[:params] && @options[:params].size > 0
+      if @options[:params] && !@options[:params].empty?
         request_url += "?#{URI.encode_www_form(@options[:params])}"
       end
 
@@ -107,7 +108,7 @@ module TwitterAds
       object.each { |header| @client.logger.info("Header: #{header}: #{object[header]}") }
 
       # suppresses body content for non-Ads API domains (eg. upload.twitter.com)
-      if object.body && object.body.size > 0
+      if object.body && !object.body.empty?
         if @domain == SANDBOX_DOMAIN || @domain == DEFAULT_DOMAIN
           @client.logger.info("Body: #{object.body}")
         else

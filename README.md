@@ -52,7 +52,7 @@ This project is designed to work with Ruby 2.0.0 or greater. While it may work o
 
 Platform | Versions
 -------- | --------
-MRI | 2.0.0, 2.1.x, 2.2.x
+MRI | 2.0.0, 2.1.x, 2.2.x, 2.3.x
 JRuby | 1.7.x, 9.0.0.0 (JDK7, JDK8, OpenJDK)
 Rubinius | 2.4.x, 2.5.x
 
@@ -79,6 +79,12 @@ We love community contributions! If you're planning to send us a pull request, p
 ## Feedback and Bug Reports
 Found an issue? Please open up a [GitHub issue](https://github.com/twitterdev/twitter-ruby-ads-sdk/issues) or even better yet [send us](https://github.com/twitterdev/twitter-ruby-ads-sdk/blob/master/CONTRIBUTING.md) a pull request.<br/>
 Have a question? Want to discuss a new feature? Come chat with us in the [Twitter Community Forums](https://twittercommunity.com/c/advertiser-api).
+
+## Error Handling
+
+Like the [Response](https://github.com/twitterdev/twitter-ruby-ads-sdk/blob/master/lib/twitter-ads/http/response.rb) and [Request](https://github.com/twitterdev/twitter-ruby-ads-sdk/blob/master/lib/twitter-ads/http/request.rb) classes, the Ads API SDK fully models all [error objects](https://github.com/twitterdev/twitter-ruby-ads-sdk/blob/master/lib/twitter-ads/error.rb) for easy error handling.
+
+<img src="http://i.imgur.com/opbv7Nh.png"/ alt="Error Hierarchy">
 
 ## License
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Copyright (C) 2015 Twitter, Inc.
 
 require 'spec_helper'
@@ -25,5 +26,12 @@ describe TwitterAds::Creative::WebsiteCard do
   read  = %w(id preview_url created_at updated_at deleted)
   write = %w(name website_title website_url website_cta image_media_id)
   include_examples 'object property check', read, write
+
+  it 'raises a warning message each time website_cta is set' do
+    expect(TwitterAds::Utils).to receive(:deprecated).with(
+      'TwitterAds::Creative::WebsiteCard#website_cta',
+      refer: 'https://t.co/deprecated-website-card-cta')
+    subject.website_cta = 'any value'
+  end
 
 end

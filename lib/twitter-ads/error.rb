@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Copyright (C) 2015 Twitter, Inc.
 
 module TwitterAds
@@ -20,12 +21,12 @@ module TwitterAds
     end
 
     def inspect
-      str = "#<#{self.class.name}:0x#{object_id}"
+      str = String.new("#<#{self.class.name}:0x#{object_id}")
       str << " code=#{@code}" if @code
       str << " details=\"#{@details}\"" if @details
       str << '>'
     end
-    alias_method :to_s, :inspect
+    alias to_s inspect
 
     class << self
 
@@ -37,7 +38,7 @@ module TwitterAds
         429 => 'TwitterAds::RateLimit',
         500 => 'TwitterAds::ServerError',
         503 => 'TwitterAds::ServiceUnavailable'
-      }
+      }.freeze
 
       # Returns an appropriately typed Error object based from an API response.
       #
@@ -79,11 +80,12 @@ module TwitterAds
   class BadRequest < ClientError; end
 
   class RateLimit < ClientError
-    attr_reader :reset_at
+    attr_reader :reset_at, :retry_after
 
     def initialize(object)
       super object
-      @reset_at = object.rate_limit_reset
+      @retry_after = object.headers['retry-after']
+      @reset_at = object.headers['rate_limit_reset']
       self
     end
   end

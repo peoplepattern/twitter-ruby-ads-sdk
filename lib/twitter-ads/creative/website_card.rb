@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Copyright (C) 2015 Twitter, Inc.
 
 module TwitterAds
@@ -20,15 +21,25 @@ module TwitterAds
       property :name
       property :website_title
       property :website_url
+      # @return [String] An enum value for the call-to-action prompt.
+      # @deprecated Please see https://t.co/deprecated-website-card-cta for more info.
       property :website_cta
       property :image_media_id
 
-      RESOURCE_COLLECTION = '/0/accounts/%{account_id}/cards/website' # @api private
-      RESOURCE            = '/0/accounts/%{account_id}/cards/website/%{id}' # @api private
+      RESOURCE_COLLECTION = '/0/accounts/%{account_id}/cards/website'.freeze # @api private
+      RESOURCE            = '/0/accounts/%{account_id}/cards/website/%{id}'.freeze # @api private
 
       def initialize(account)
         @account = account
         self
+      end
+
+      # Overload for CTA deprecation warning.
+      # @private
+      def website_cta=(value)
+        TwitterAds::Utils.deprecated(
+          "#{self.class}#website_cta", refer: 'https://t.co/deprecated-website-card-cta')
+        @website_cta = value
       end
 
     end

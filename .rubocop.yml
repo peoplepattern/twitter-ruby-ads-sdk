@@ -1,5 +1,6 @@
 # Style & Quality Overrides
 AllCops:
+  TargetRubyVersion: 2.0
   Exclude:
     - 'bin/**/*'
 
@@ -27,6 +28,12 @@ Metrics/PerceivedComplexity:
 Metrics/ParameterLists:
   Max: 10
   CountKeywordArgs: true
+
+Performance/Casecmp:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
 
 Style/StringLiterals:
   Enabled: true

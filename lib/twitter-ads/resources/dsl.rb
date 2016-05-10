@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Copyright (C) 2015 Twitter, Inc.
 
 module TwitterAds
@@ -55,7 +56,7 @@ module TwitterAds
           elsif type == :bool
             params[name] = TwitterAds::Utils.to_bool(value)
           elsif value.is_a?(Array)
-            next if value.size < 1
+            next if value.empty?
             params[name] = value.join(',')
           else
             params[name] = value

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Copyright (C) 2015 Twitter, Inc.
 
 module TwitterAds
@@ -11,9 +12,9 @@ module TwitterAds
     attr_reader :account
 
     property :id, read_only: true
+    property :deleted, type: :bool, read_only: true
     property :created_at, type: :time, read_only: true
     property :updated_at, type: :time, read_only: true
-    property :deleted, type: :bool, read_only: true
 
     property :name
     property :campaign_id
@@ -32,13 +33,27 @@ module TwitterAds
     property :bid_amount_local_micro
     property :total_budget_amount_local_micro
 
-    RESOURCE_COLLECTION = '/0/accounts/%{account_id}/line_items' # @api private
-    RESOURCE_STATS      = '/0/stats/accounts/%{account_id}/line_items' # @api private
-    RESOURCE            = '/0/accounts/%{account_id}/line_items/%{id}' # @api private
+    # beta (not yet generally available)
+    property :advertiser_user_id
+    property :bid_type
+    property :tracking_tags
+
+    RESOURCE_COLLECTION = '/0/accounts/%{account_id}/line_items'.freeze # @api private
+    RESOURCE_STATS      = '/0/stats/accounts/%{account_id}/line_items'.freeze # @api private
+    RESOURCE            = '/0/accounts/%{account_id}/line_items/%{id}'.freeze # @api private
 
     def initialize(account)
       @account = account
       self
+    end
+
+    # Overload for CUSTOM objective deprecation warning.
+    # @private
+    def objective=(value)
+      if value == TwitterAds::Objective::CUSTOM
+        TwitterAds::Utils.deprecated('TwitterAds::Objective::CUSTOM')
+      end
+      @objective = value
     end
 
     class << self
