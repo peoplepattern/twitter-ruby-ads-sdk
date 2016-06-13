@@ -43,8 +43,8 @@ describe TwitterAds::Tweet do
     context 'when previewing a new tweet' do
 
       it 'allows a single value for the media_ids param' do
-        resource = "/0/accounts/#{account.id}/tweet/preview"
-        expected = { status: 'Hello World!', media_ids: 634458428836962304 }
+        resource = "/1/accounts/#{account.id}/tweet/preview"
+        expected = { status: 'Hello%20World!', media_ids: 634458428836962304 }
 
         expect(TwitterAds::Request).to receive(:new).with(
           account.client, :get, resource, params: expected).and_call_original
@@ -56,8 +56,8 @@ describe TwitterAds::Tweet do
       end
 
       it 'allows an array of values for the media_ids param' do
-        resource = "/0/accounts/#{account.id}/tweet/preview"
-        expected = { status: 'Hello World!', media_ids: '634458428836962304,634458428836962305' }
+        resource = "/1/accounts/#{account.id}/tweet/preview"
+        expected = { status: 'Hello%20World!', media_ids: '634458428836962304,634458428836962305' }
 
         expect(TwitterAds::Request).to receive(:new).with(
           account.client, :get, resource, params: expected).and_call_original

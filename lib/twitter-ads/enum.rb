@@ -15,8 +15,6 @@ module TwitterAds
       VIDEO_VIEWS       = 'VIDEO_VIEWS'.freeze
       WEBSITE_CLICKS    = 'WEBSITE_CLICKS'.freeze
 
-      # @deprecated
-      CUSTOM = 'CUSTOM'.freeze
     end
 
     module Product
@@ -64,6 +62,7 @@ module TwitterAds
       LEAD        = 'LEAD'.freeze
       LINK_CLICK  = 'LINK_CLICK'.freeze
       VIEW        = 'VIEW'.freeze
+      VIEW_3S_100PCT = 'VIEW_3S_100PCT'.freeze
     end
 
     module BidType
@@ -80,6 +79,34 @@ module TwitterAds
       LEAD        = 'LEAD'.freeze
       LINK_CLICK  = 'LINK_CLICK'.freeze
       VIEW        = 'VIEW'.freeze
+      VIEW_3S_100PCT = 'VIEW_3S_100PCT'.freeze
+    end
+
+    module MetricGroup
+      ENGAGEMENT        = 'ENGAGEMENT'.freeze
+      WEB_CONVERSION    = 'WEB_CONVERSION'.freeze
+      MOBILE_CONVERSION = 'MOBILE_CONVERSION'.freeze
+      MEDIA             = 'MEDIA'.freeze
+      VIDEO             = 'VIDEO'.freeze
+      BILLING           = 'BILLING'.freeze
+      LIFE_TIME_VALUE_MOBILE_CONVERSION = 'LIFE_TIME_VALUE_MOBILE_CONVERSION'.freeze
+    end
+
+    module JobStatus
+      QUEUED      = 'QUEUED'.freeze
+      PROCESSING  = 'PROCESSING'.freeze
+      UPLOADING   = 'UPLOADING'.freeze
+      SUCCESS     = 'SUCCESS'.freeze
+      FAILED      = 'FAILED'.freeze
+    end
+
+    module Entity
+      ACCOUNT            = 'ACCOUNT'.freeze
+      FUNDING_INSTRUMENT = 'FUNDING_INSTRUMENT'.freeze
+      CAMPAIGN           = 'CAMPAIGN'.freeze
+      LINE_ITEM          = 'LINE_ITEM'.freeze
+      PROMOTED_TWEET     = 'PROMOTED_TWEET'.freeze
+      ORGANIC_TWEET      = 'ORGANIC_TWEET'.freeze
     end
 
     module CreativeType
@@ -140,6 +167,11 @@ module TwitterAds
       ADD = 'ADD'.freeze
       REMOVE  = 'REMOVE'.freeze
       REPLACE = 'REPLACE'.freeze
+    end
+
+    module PermissionLevel
+      READ_ONLY = 'READ_ONLY'.freeze
+      READ_WRITE = 'READ_WRITE'.freeze
     end
 
     module TrackingPartner
