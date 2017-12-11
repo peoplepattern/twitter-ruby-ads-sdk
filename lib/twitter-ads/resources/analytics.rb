@@ -11,6 +11,7 @@ module TwitterAds
       'TwitterAds::Campaign' => 'CAMPAIGN'.freeze,
       'TwitterAds::LineItem' => 'LINE_ITEM'.freeze,
       'TwitterAds::OrganicTweet' => 'ORGANIC_TWEET'.freeze,
+      'TwitterAds::Creative::PromotedAccount' => 'ACCOUNT'.freeze,
       'TwitterAds::Creative::PromotedTweet' => 'PROMOTED_TWEET'.freeze
     }.freeze
 
@@ -71,12 +72,14 @@ module TwitterAds
         end_time          = opts.fetch(:end_time, (Time.now - Time.now.sec - (60 * Time.now.min)))
         start_time        = opts.fetch(:start_time, end_time - 604_800) # 7 days ago
         granularity       = opts.fetch(:granularity, :hour)
+        start_utc_offset  = opts[:start_utc_offset] || opts[:utc_offset]
+        end_utc_offset    = opts[:end_utc_offset] || opts[:utc_offset]
         placement         = opts.fetch(:placement, Placement::ALL_ON_TWITTER)
 
         params = {
           metric_groups: metric_groups.join(','),
-          start_time: TwitterAds::Utils.to_time(start_time, granularity),
-          end_time: TwitterAds::Utils.to_time(end_time, granularity),
+          start_time: TwitterAds::Utils.to_time(start_time, granularity, start_utc_offset),
+          end_time: TwitterAds::Utils.to_time(end_time, granularity, end_utc_offset),
           granularity: granularity.to_s.upcase,
           entity: ANALYTICS_MAP[name],
           placement: placement
@@ -91,7 +94,7 @@ module TwitterAds
 
       # Create an asynchronous analytics job for a given ads account.
       # A job_id is returned, which you can use to poll the
-      # GET /1/stats/jobs/accounts/:account_id endpoint, checking until the job is successful.
+      # GET stats/jobs/accounts/:account_id endpoint, checking until the job is successful.
       #
       # @example
       #   ids = ['7o4em', 'oc9ce', '1c5lji']
@@ -118,6 +121,8 @@ module TwitterAds
         end_time          = opts.fetch(:end_time, (Time.now - Time.now.sec - (60 * Time.now.min)))
         start_time        = opts.fetch(:start_time, end_time - 604_800) # 7 days ago
         granularity       = opts.fetch(:granularity, :hour)
+        start_utc_offset  = opts[:start_utc_offset] || opts[:utc_offset]
+        end_utc_offset    = opts[:end_utc_offset] || opts[:utc_offset]
         placement         = opts.fetch(:placement, Placement::ALL_ON_TWITTER)
         segmentation_type = opts.fetch(:segmentation_type, nil)
         country = opts.fetch(:country, nil)
@@ -125,8 +130,8 @@ module TwitterAds
 
         params = {
           metric_groups: metric_groups.join(','),
-          start_time: TwitterAds::Utils.to_time(start_time, granularity),
-          end_time: TwitterAds::Utils.to_time(end_time, granularity),
+          start_time: TwitterAds::Utils.to_time(start_time, granularity, start_utc_offset),
+          end_time: TwitterAds::Utils.to_time(end_time, granularity, end_utc_offset),
           granularity: granularity.to_s.upcase,
           entity: ANALYTICS_MAP[name],
           placement: placement,
@@ -144,7 +149,7 @@ module TwitterAds
       end
 
       # Check async job status.
-      # GET /1/stats/jobs/accounts/:account_id
+      # GET /#{TwitterAds::API_VERSION}/stats/jobs/accounts/:account_id
       #
       # @example
       #   TwitterAds::LineItem.check_async_job_status(account, job_id: '1357343438724431305')
@@ -156,9 +161,9 @@ module TwitterAds
 
       def check_async_job_status(account, opts = {})
         # set default values
-        job_id = opts.fetch(:job_id, nil)
+        job_ids = opts.fetch(:job_ids, nil)
         params = {}
-        params[:job_id] = job_id if job_id
+        params[:job_ids] = Array.wrap(job_ids).join(',') if job_ids
 
         resource = self::RESOURCE_ASYNC_STATS % { account_id: account.id }
         request = Request.new(account.client, :get, resource, params: params)

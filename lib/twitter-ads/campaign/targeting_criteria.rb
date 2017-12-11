@@ -7,6 +7,7 @@ module TwitterAds
     include TwitterAds::DSL
     include TwitterAds::Persistence
     include TwitterAds::Resource::InstanceMethods
+    include TwitterAds::Batch
 
     attr_reader :account
 
@@ -24,8 +25,15 @@ module TwitterAds
     property :tailored_audience_type
     property :location_type
 
-    RESOURCE_COLLECTION = '/1/accounts/%{account_id}/targeting_criteria'.freeze # @api private
-    RESOURCE            = '/1/accounts/%{account_id}/targeting_criteria/%{id}'.freeze # @api private
+    # sdk only
+    property :to_delete, type: :bool
+
+    RESOURCE_COLLECTION = "/#{TwitterAds::API_VERSION}/" +
+                          'accounts/%{account_id}/targeting_criteria'.freeze # @api private
+    RESOURCE_BATCH      = "/#{TwitterAds::API_VERSION}/" +
+                          'batch/accounts/%{account_id}/targeting_criteria'.freeze # @api private
+    RESOURCE            = "/#{TwitterAds::API_VERSION}/" +
+                          'accounts/%{account_id}/targeting_criteria/%{id}'.freeze # @api private
 
     def initialize(account)
       @account = account
