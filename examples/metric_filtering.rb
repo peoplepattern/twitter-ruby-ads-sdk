@@ -193,13 +193,6 @@ module TwitterAds
         :video,
         :other
       ],
-      lead_generation: [
-        :conversion,
-        :engagement,
-        :spend,
-        :twitter_audience_platform,
-        :other
-      ],
       preroll_views: [
         :engagement,
         :media,
@@ -211,13 +204,6 @@ module TwitterAds
       ],
       tweet_engagements: [
         :conversion,
-        :engagement,
-        :media,
-        :spend,
-        :video,
-        :other
-      ],
-      qualified_views: [
         :engagement,
         :media,
         :spend,

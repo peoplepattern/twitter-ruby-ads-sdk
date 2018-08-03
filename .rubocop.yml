@@ -32,6 +32,9 @@ Metrics/ParameterLists:
 Performance/Casecmp:
   Enabled: false
 
+Style/MixinGrouping:
+  Enabled: false
+
 Style/MultilineMethodCallBraceLayout:
   Enabled: false
 
@@ -106,7 +109,7 @@ Style/MultilineIfModifier:
 Style/IdenticalConditionalBranches:
   Enabled: false
 
-Layout/EmptyLineAfterMagicComment:
+Style/EmptyLineAfterMagicComment:
   Enabled: false
 
 Metrics/BlockLength:
