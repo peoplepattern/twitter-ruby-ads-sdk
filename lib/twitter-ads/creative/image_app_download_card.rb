@@ -19,11 +19,10 @@ module TwitterAds
       property :id, read_only: true
       property :image_display_height, read_only: true
       property :image_display_width, read_only: true
-      property :preview_url, read_only: true
       property :updated_at, type: :time, read_only: true
       property :wide_app_image, read_only: true
 
-      property :app_country_code
+      property :country_code
       property :app_cta
       property :googleplay_app_id
       property :googleplay_deep_link

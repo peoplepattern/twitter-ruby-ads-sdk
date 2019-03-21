@@ -23,11 +23,11 @@ describe TwitterAds::Creative::ImageAppDownloadCard do
 
   # check model properties
   subject { described_class.new(account) }
-  read  = %w(id preview_url created_at updated_at deleted)
+  read  = %w(id created_at updated_at deleted)
 
   write = %w(
     name
-    app_country_code
+    country_code
     iphone_app_id
     iphone_deep_link
     ipad_app_id

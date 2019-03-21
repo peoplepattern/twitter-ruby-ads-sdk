@@ -108,6 +108,7 @@ module TwitterAds
       LINE_ITEM          = 'LINE_ITEM'.freeze
       PROMOTED_TWEET     = 'PROMOTED_TWEET'.freeze
       ORGANIC_TWEET      = 'ORGANIC_TWEET'.freeze
+      MEDIA_CREATIVE     = 'MEDIA_CREATIVE'.freeze
     end
 
     module EntityStatus
@@ -220,6 +221,11 @@ module TwitterAds
     module AudienceDefinition
       TARGETING_CRITERIA = 'TARGETING_CRITERIA'.freeze
       KEYWORD_AUDIENCE = 'KEYWORD_AUDIENCE'.freeze
+    end
+
+    module LookalikeExpansion
+      DEFINED = 'DEFINED'.freeze
+      EXPANDED = 'EXPANDED'.freeze
     end
   end
 end
